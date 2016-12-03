@@ -1,0 +1,29 @@
+
+<div class="login-page">
+	<div class="row">
+		<div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
+        	<div class="logo text-center">
+            	<span class="letra">P<span>
+			</div>
+			<h1>Administrador <br><small>Modulo Financiero</small></h1>
+			<form role="form" name="vm.formLogin"  novalidate>
+
+				<div class="form-content">
+					<div class="form-group">
+						<input type="text" class="form-control input-underline input-lg" placeholder="Correo" ng-model="vm.data.credenciales.correo" ng-pattern="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i" ng-required='true'>
+					</div>
+
+					<div class="form-group">
+					    <input type="password" class="form-control input-underline input-lg" placeholder="Contraseña" ng-model="vm.data.credenciales.password" ng-required='true'>
+
+					</div>
+				</div>
+
+				<button type="submit" class="btn btn-white btn-outline btn-lg btn-rounded big" ng-disabled="vm.formLogin.$invalid" ng-click="vm.doLogin()">Login</button>
+			</form>
+			<div uib-alert ng-if="vm.alert" ng-class="'alert-danger'" close="vm.closeAlert()">{{vm.alert}}</div>
+
+		</div>
+	</div>
+
+</div>

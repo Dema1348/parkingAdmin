@@ -1,0 +1,69 @@
+<div>
+	<a ui-sref="overview" class="pull-right btn btn-primary btn-outline btn-rounded">Volver a Infomacion General</a>
+	<h2>Reportes <small></small></h2>
+	<span class="glyphicon glyphicon-dashboard bg-fade"></span>
+	<div class="jumbotron">
+		<div class="container">
+			<form class="form-inline">
+		        <div class="form-group">
+		            <label >Filtro</label>
+		            <input type="text" ng-model="vm.data.search" class="form-control" placeholder="Filtrar">
+		        </div>
+		         <button ng-json-export-excel data="vm.data.pagos"  filter="vm.data.search" report-fields="{'id': 'ID transacción', 
+		         'rut': 'Rut', 
+		         'div': 'Digito Verificador', 
+		         'nombre':'Nombre',
+		         'apPaterno':'Apellido Paterno',
+		         'apMaterno':'Apellido Materno' , 
+		         'total':'Total',
+		         'estadoPago':'Estado',
+		         'fechaPago':'Fecha'}" filename =" 'export-excel' " separator="," class="btn btn-success">Descarga Excel</button>
+
+		    </form>
+		    <br>
+			<div class="panel panel-default"> 
+				<div class="panel-heading">Pagos realizados </div> 
+				 <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                     <th ng-click="vm.sort('id')">Id
+				  						<span class="glyphicon sort-icon" ng-show="vm.data.sortKey=='id'" ng-class="{'glyphicon-chevron-up':vm.data.reverse,'glyphicon-chevron-down':!vm.data.reverse}"></span>
+                                     </th>
+						            <th ng-click="vm.sort('rut')">Rut
+											<span class="glyphicon sort-icon" ng-show="vm.data.sortKey=='rut'" ng-class="{'glyphicon-chevron-up':vm.data.reverse,'glyphicon-chevron-down':!vm.data.reverse}"></span>
+						            </th>
+						            <th ng-click="vm.sort('nombre')">Nombre
+										<span class="glyphicon sort-icon" ng-show="vm.data.sortKey=='nombre'" ng-class="{'glyphicon-chevron-up':vm.data.reverse,'glyphicon-chevron-down':!vm.data.reverse}"></span>
+						            </th>
+						            <th ng-click="vm.sort('total')">Total
+										<span class="glyphicon sort-icon" ng-show="vm.data.sortKey=='total'" ng-class="{'glyphicon-chevron-up':vm.data.reverse,'glyphicon-chevron-down':!vm.data.reverse}"></span>
+						            </th> 
+						            <th ng-click="vm.sort('estadoPago')">Estado
+										<span class="glyphicon sort-icon" ng-show="vm.data.sortKey=='estadoPago'" ng-class="{'glyphicon-chevron-up':vm.data.reverse,'glyphicon-chevron-down':!vm.data.reverse}"></span>
+						            </th>
+						             <th ng-click="vm.sort('fechaPago')">Fecha
+										<span class="glyphicon sort-icon" ng-show="vm.data.sortKey=='fechaPago'" ng-class="{'glyphicon-chevron-up':vm.data.reverse,'glyphicon-chevron-down':!vm.data.reverse}"></span>
+						            </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="pagos in vm.data.pagos | orderBy:vm.data.sortKey:vm.data.reverse|filter:vm.data.search | itemsPerPage:6">
+                                    <td >{{pagos.id}}</td>
+                                    <td >{{pagos.rut}}-{{pagos.div}}</td>
+                                    <td >{{pagos.nombre}} {{pagos.apPaterno}} {{pagos.apMaterno}}</td>
+                                    <td >{{pagos.total | currency:$:0}}</td>
+                                    <td >{{pagos.estadoPago}}</td>
+                                    <td >{{pagos.fechaPago | amDateFormat:'dddd Do MMMM, YYYY'}}</td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                         
+			</div>
+			 <dir-pagination-controls
+		       max-size="6"
+		       direction-links="true"
+		       boundary-links="true" >
+		    </dir-pagination-controls>
+		</div>
+	</div>
+</div>

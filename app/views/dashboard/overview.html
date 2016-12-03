@@ -1,0 +1,31 @@
+<div>
+	<a ui-sref="reports" class="pull-right btn btn-primary btn-outline btn-rounded">Ver reportes generales</a>
+	<h2>Dinero recaudado a la fecha {{vm.data.totalPagos | currency:$:0}} </h2>
+	<div class="jumbotron">
+		<div class="container">
+			<h2>Estado de reservas</h2>
+			<c3chart ng-if="vm.data.aprovados && vm.data.reprovados && vm.data.pendientes" bindto-id="pie-plot1-chart">
+			  <chart-column column-id="Aprovados"
+			              column-values="{{vm.data.aprovados}}"
+			              column-type="pie"/>
+			  <chart-column column-id="Rechazados"
+			              column-values="{{vm.data.reprovados}}"
+			              column-type="pie"/>
+			    <chart-column column-id="Pendientes"
+			              column-values="{{vm.data.pendientes}}"
+			              column-type="pie"/>
+			  <chart-pie expand="true"/>
+			</c3chart>
+			<h2>Tasa de aprovacion de pagos</h2>
+			<c3chart ng-if="vm.data.totalAprovados" bindto-id="gauge-plot1-chart">
+				  <chart-column column-id="Tasa de exito"
+				              column-values="{{vm.data.totalAprovados}}"
+				              column-type="gauge"/>
+				  <chart-gauge min="0"
+				            max="100"
+				            units=" Exito"
+				            width="39"/>
+			</c3chart>			
+		</div>
+	</div>
+</div>
